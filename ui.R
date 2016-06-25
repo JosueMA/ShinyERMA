@@ -49,7 +49,7 @@ ui<-shinyUI(fluidPage(
                    the International Objective Measurement Workshop (IOMW) in Philadelphia, PA.")),
         tabPanel("Data",dataTableOutput('Dat')),
         tabPanel("Item Summary",tags$br(),tableOutput('ItemTable'),tags$br(), tableOutput('Item')),
-        tabPanel("Person Summary",tableOutput('PersonTable'),tags$br(),tableOutput('Person')),
-        tabPanel("The Wright Map",plotOutput('HistI'),plotOutput('HistP'),tags$br(), plotOutput('Stem'))
+        tabPanel("Person Summary",tags$br(),tableOutput('PersonTable'),tags$br(),tableOutput('Person')),
+        tabPanel("The Wright Map",tags$br(),plotOutput('HistI'),plotOutput('HistP'),tags$br(), plotOutput('Stem'))
                  ))
                    )))
