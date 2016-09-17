@@ -349,6 +349,11 @@ server<-shinyServer(function(input, output){
   df<-rep(Categ-1,NGitem)
   Q1.pvalue<-NULL
   for(i in 1:NGitem){Q1.pvalue<-c(Q1.pvalue,pchisq(Q1[i],Categ-1,lower.tail =F))}
+  Q1.pvalue<-round(Q1.pvalue, digits = 2)
+  for (i in 1:NGitem){
+    q<-Q1.pvalue[i]
+    Q1.pvalue[i]<-ifelse(q<.01,"<.01",ifelse(q>.99, ">.99",q))
+  }
   
   ItemTable <- data.frame(percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
   names(ItemTable)<-c("Percent correct", "Estimates", "Std.err", "Infit", "Outfit", "Q1", "df", "Q1.pvalue")
