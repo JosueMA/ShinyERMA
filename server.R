@@ -94,7 +94,7 @@ server<-shinyServer(function(input, output){
   Rel_i=(SDi-SEi)/SDi
   
   Items.summary<-rbind(Item.summary,c(NA,NGitem),c(NA,Rel_i))
-  Items.summary<-cbind(Items.summary, c("MEAN","S.D.","MAX","MIN","COUNT","Reliability")
+  Items.summary<-cbind(Items.summary, c("","MEAN","S.D.","MAX","MIN","COUNT","Reliability")
   Items.summary
   })
   
