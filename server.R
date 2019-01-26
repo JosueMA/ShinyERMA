@@ -94,7 +94,7 @@ server<-shinyServer(function(input, output){
   Rel_i=(SDi-SEi)/SDi
   
   Items.summary<-rbind(Item.summary,c(NA,NGitem),c(NA,Rel_i))
-  row.names(Items.summary)<-c("MEAN","S.D.","MAX","MIN","COUNT","Reliability")
+  Items.summary<-cbind(Items.summary, c("MEAN","S.D.","MAX","MIN","COUNT","Reliability")
   Items.summary
   })
   
@@ -354,8 +354,8 @@ server<-shinyServer(function(input, output){
     q<-Q1.pvalue[i]
     Q1.pvalue[i]<-ifelse(q<.01,"<.01",ifelse(q>.99, ">.99",q))
   }
-  
-  ItemTable <- data.frame(percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
+  ItemNo<-seq(1,NGitem,by=1)
+  ItemTable <- data.frame(ItemNo,percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
   names(ItemTable)<-c("Percent correct", "Estimates", "Std.err", "Infit", "Outfit", "Q1", "df", "Q1.pvalue")
   ItemTable
    })
