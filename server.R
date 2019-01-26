@@ -49,7 +49,7 @@ server<-shinyServer(function(input, output){
   G_items=rowMeans(Logit)
   Mean <-mean(G_items)
   SD <-sd(G_items)
-  Items.summary=data.frame("Statistics"=c("Mean","SD","max","min"),"Raw Score"=c(mean(colSums(mat)),sd(colSums(mat)),max(colSums(mat)),min(colSums(mat))),"Measure"=c(mean(G_items),sd(G_items),max(G_items),min(G_items)))
+  Item.summary=data.frame("Raw Score"=c(mean(colSums(mat)),sd(colSums(mat)),max(colSums(mat)),min(colSums(mat))),"Rasch Measure"=c(mean(G_items),sd(G_items),max(G_items),min(G_items)))
   
   # Theta Estimates
   A<-matrix(0,dim(mat)[1],1)
@@ -93,7 +93,7 @@ server<-shinyServer(function(input, output){
   SDi=var(G_items)
   Rel_i=(SDi-SEi)/SDi
   
-  Items.summary<-rbind(Items.summary,c(NA,NGitem),c(NA,Rel_i))
+  Items.summary<-rbind(Item.summary,c(NA,NGitem),c(NA,Rel_i))
   row.names(Items.summary)<-c("MEAN","S.D.","MAX","MIN","COUNT","Reliability")
   Items.summary
   })
