@@ -49,8 +49,7 @@ server<-shinyServer(function(input, output){
   G_items=rowMeans(Logit)
   Mean <-mean(G_items)
   SD <-sd(G_items)
-  Item.summary=data.frame("Raw Score"=c(mean(colSums(mat)),sd(colSums(mat)),max(colSums(mat)),min(colSums(mat))),"Rasch Measure"=c(mean(G_items),sd(G_items),max(G_items),min(G_items)))
-  
+ 
   # Theta Estimates
   A<-matrix(0,dim(mat)[1],1)
   
@@ -93,8 +92,9 @@ server<-shinyServer(function(input, output){
   SDi=var(G_items)
   Rel_i=(SDi-SEi)/SDi
   
-  Items.summary<-rbind(Item.summary,c(NA,Rel_i))
-  row.names(Items.summary)<-c("MEAN","S.D.","MAX","MIN","Reliability")
+  Items.summary=data.frame("Statistics"=c("MEAN","S.D.","MAX","MIN","Reliability"),
+                             "Raw Score"=c(mean(colSums(mat)),sd(colSums(mat)),max(colSums(mat)),min(colSums(mat)),NA),
+                             Count=c(rep(NGitem, 4),NA),Measure=c(mean(G_items),sd(G_items),max(G_items),min(G_items),Rel_i))
   Items.summary
   })
   
@@ -182,9 +182,9 @@ server<-shinyServer(function(input, output){
   SDp=var(A)
   Reliability=(SDp-SEp)/SDp
   
-  Persons.summary=data.frame("Raw Score"=c(mean(rowSums(mat)),sd(rowSums(mat)),max(rowSums(mat)),min(rowSums(mat))),Measure=c(mean(A),sd(A),max(A),min(A)))
-  Persons.summary<-rbind(Persons.summary,c(NA, Nperson),c(NA,Reliability))
-  row.names(Persons.summary)<-c("MEAN","S.D.","MAX","MIN","COUNT","Reliability")
+  Persons.summary=data.frame("Statistics"=c("MEAN","S.D.","MAX","MIN","Reliability"),
+                               "Raw Score"=c(mean(rowSums(mat)),sd(rowSums(mat)),max(rowSums(mat)),min(rowSums(mat)),NA),
+                               Count=c(rep(Nperson, 4),NA),Measure=c(mean(A),sd(A),max(A),min(A),Reliability))
   Persons.summary
   })
   
@@ -354,9 +354,11 @@ server<-shinyServer(function(input, output){
     q<-Q1.pvalue[i]
     Q1.pvalue[i]<-ifelse(q<.01,"<.01",ifelse(q>.99, ">.99",q))
   }
-  ItemNo<-seq(1,NGitem,by=1)
-  ItemTable <- data.frame(ItemNo,percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
-  names(ItemTable)<-c("Percent correct", "Estimates", "Std.err", "Infit", "Outfit", "Q1", "df", "Q1.pvalue")
+ 
+  IID<-seq(1,NGitem,by=1)
+  ItemTable <- data.frame(percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
+  ItemTable<-cbind(as.factor(IID),ItemTable)
+  names(ItemTable)<-c("Item No.","Percent correct", "Estimates", "Std.err", "Infit", "Outfit", "Q1", "df", "Q1.pvalue")
   ItemTable
    })
   
@@ -485,8 +487,10 @@ server<-shinyServer(function(input, output){
                                    ifelse(Person.outfit[i]>=2,"D","NA"))))
   }
   
+  PID<-seq(1, Nperson, by=1)
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  names(PersonTable)<-c("percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
+  PersonTable<-cbind(as.factor(PID),PersonTable)
+  names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
   
