@@ -46,7 +46,7 @@ radioButtons('sep','Separator',c(Comma=',',Semicolon=';',Tab='\t',Space=""), ','
     An R Program for Rasch Measurement Models.",style="font-style: italic")," Paper presented at 
     the International Objective Measurement Workshop (IOMW) in Philadelphia, PA."),
   p("Yen, W. (1981). Using simulation results to choose a latent trait model.", 
-     span ("Applied Psychological Measurement, 5,", style="font-style: italic"), 245-262.")),
+     span ("Applied Psychological Measurement, 5,", style="font-style: italic"), "245-262.")),
       tabPanel("Data",dataTableOutput('Dat')),
       tabPanel("Item Summary",tags$br(),tableOutput('ItemTable'),tags$br(), tableOutput('Item')),
       tabPanel("Person Summary",tableOutput('PersonTable'),tags$br(),tableOutput('Person'),tags$br(),tableOutput('Inttab')),
