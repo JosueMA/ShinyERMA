@@ -369,6 +369,7 @@ server<-shinyServer(function(input, output){
   # Drop item columns
   IMean <- colMeans(mat)
   mat <- mat[,IMean!=1 & IMean!=0]
+  PID <- mat[1,]
   # Drop person ID column
   Nitem<-ncol(mat)
   row.names(mat)<-mat[,1]
@@ -487,7 +488,7 @@ server<-shinyServer(function(input, output){
                                    ifelse(Person.outfit[i]>=2,"D","NA"))))
   }
   
-  PID<-seq(1, Nperson, by=1)
+  PID<-PID[-index]
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
   PersonTable<-cbind(as.factor(PID),PersonTable)
   names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
