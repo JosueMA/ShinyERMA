@@ -490,7 +490,7 @@ server<-shinyServer(function(input, output){
   }
   
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  row.names(PersonTable)<-PID
+  row.names(PersonTable)<-PID[-index]
   names(PersonTable)<-c("percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
