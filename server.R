@@ -160,7 +160,9 @@ server<-shinyServer(function(input, output){
       A[i,1]=NEWA
     }
   }
-  Persons <- A
+  
+    
+    s <- A
   
   # Standard errors for person estimates
   
@@ -369,19 +371,21 @@ server<-shinyServer(function(input, output){
     # Drop item columns
   IMean <- colMeans(mat)
   mat <- mat[,IMean!=1 & IMean!=0]
+  # Drop person ID column
+  x <- mat[,-1] 
   #Delete perfect scores for persons
   perfect<-NULL
   index<-NULL
-  Nitem<-ncol(mat)-1
-  for (i in 2: dim(mat)[1]){
-    if (sum(mat[i,])==Nitem||sum(mat[i,])==0){
-      perfect<-rbind(perfect,mat[i,])
+  Nitem<-ncol(x)
+  Nperson<-nrow(x)
+  for (i in 1: Nperson){
+    if (sum(x[i,])==Nitem||sum(x[i,])==0){
+      perfect<-rbind(perfect,x[i,])
       index<-c(index,i)
     }}
   if (is.null(index)==FALSE) {
-    mat<-mat[-index,]}
-   # Drop person ID column
-  x <- mat[,-1] 
+    x<-x[-index,]}
+
     
   #Pairwise comparison
   Nperson <- dim(x)[1]
@@ -486,8 +490,8 @@ server<-shinyServer(function(input, output){
   }
   
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  PersonTable<-cbind(mat[,1],PersonTable)
-  names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
+  row.names(PersonTable)<-mat[-index,1]
+  names(PersonTable)<-c("percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
   
