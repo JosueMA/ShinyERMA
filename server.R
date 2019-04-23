@@ -368,26 +368,26 @@ server<-shinyServer(function(input, output){
   	inFile<-input$Data
   	if (is.null(inFile)) return(NULL)
   	mat<-read.table(inFile$datapath,header=TRUE,sep=input$sep)
-    # Drop item columns
+     # Drop item columns
   IMean <- colMeans(mat)
   mat <- mat[,IMean!=1 & IMean!=0]
   # Drop person ID column
-  x <- mat[,-1] 
-  #Delete perfect scores for persons
+  Nitem<-ncol(mat)
+  PID <- mat[,1]
+  mat <- mat[,-1]
+  #Delete perfect scores
   perfect<-NULL
   index<-NULL
-  Nitem<-ncol(x)
-  Nperson<-nrow(x)
-  for (i in 1: Nperson){
-    if (sum(x[i,])==Nitem||sum(x[i,])==0){
-      perfect<-rbind(perfect,x[i,])
+  for (i in 1: dim(mat)[1]){
+    if (sum(mat[i,])==dim(mat)[2]||sum(mat[i,])==0){
+      perfect<-rbind(perfect,mat[i,])
       index<-c(index,i)
     }}
-  if (is.null(index)==FALSE) {
-    x<-x[-index,]}
-
-    
+  
+  if (is.null(index)==FALSE) {mat<-mat[-index,]}
+  
   #Pairwise comparison
+  x <- mat
   Nperson <- dim(x)[1]
   NGitem <- dim(x)[2]
   percent<-NULL
@@ -490,7 +490,7 @@ server<-shinyServer(function(input, output){
   }
   
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  row.names(PersonTable)<-mat[-index,1]
+  row.names(PersonTable)<-PID
   names(PersonTable)<-c("percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
