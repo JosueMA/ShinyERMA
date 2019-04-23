@@ -374,7 +374,7 @@ server<-shinyServer(function(input, output){
   index<-NULL
   Nitem<-ncol(mat)-1
   for (i in 2: dim(mat)[1]){
-    if (sum(mat[i,])==NItem||sum(mat[i,])==0){
+    if (sum(mat[i,])==Nitem||sum(mat[i,])==0){
       perfect<-rbind(perfect,mat[i,])
       index<-c(index,i)
     }}
