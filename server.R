@@ -489,9 +489,8 @@ server<-shinyServer(function(input, output){
                                    ifelse(Person.outfit[i]>=2,"D","NA"))))
   }
   
-  PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  row.names(PersonTable)<-PID[-index]
-  names(PersonTable)<-c("percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
+  PersonTable <- data.frame(PID[-index], percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
+  names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
   
