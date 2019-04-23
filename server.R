@@ -372,9 +372,9 @@ server<-shinyServer(function(input, output){
   IMean <- colMeans(mat)
   mat <- mat[,IMean!=1 & IMean!=0]
   # Drop person ID column
-  Nitem<-ncol(mat)
   PID <- mat[,1]
   mat <- mat[,-1]
+  Nitem<-ncol(mat)
   #Delete perfect scores
   perfect<-NULL
   index<-NULL
@@ -494,7 +494,7 @@ server<-shinyServer(function(input, output){
   for (i in 1: length(index)){
   extre[i] <- ifelse(perfprop[i] == 1, "maximum", ifelse(perfprop[i] == 0, "minimum","Error"))
   }
-  extremes <- cbind(PID[index], perfprop, extre, rep(NA,length(index), rep(NA,length(index), rep(NA,length(index), rep(NA,length(index))
+  extremes <- cbind(PID[index], perfprop, extre, rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)))
     
   PersonTable <- data.frame(PID[-index], percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
   PersonTable <- rbind(PersonTable, extremes)
