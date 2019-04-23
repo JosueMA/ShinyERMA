@@ -369,7 +369,7 @@ server<-shinyServer(function(input, output){
     # Drop item columns
   IMean <- colMeans(mat)
   mat <- mat[,IMean!=1 & IMean!=0]
-  #Delete perfect scores
+  #Delete perfect scores for persons
   perfect<-NULL
   index<-NULL
   Nitem<-ncol(mat)-1
@@ -381,8 +381,6 @@ server<-shinyServer(function(input, output){
   if (is.null(index)==FALSE) {
     mat<-mat[-index,]}
    # Drop person ID column
-  row.names(mat)<-mat[,1]
-  PID <- mat[,1]
   x <- mat[,-1] 
     
   #Pairwise comparison
@@ -486,8 +484,9 @@ server<-shinyServer(function(input, output){
                             ifelse(Person.outfit[i]<2 & Person.outfit[i]>=1.50,"C",
                                    ifelse(Person.outfit[i]>=2,"D","NA"))))
   }
+  
   PersonTable <- data.frame(percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  PersonTable<-cbind(as.factor(PID),PersonTable)
+  PersonTable<-cbind(mat[,1],PersonTable)
   names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable
   })
