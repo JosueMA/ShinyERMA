@@ -496,7 +496,7 @@ server<-shinyServer(function(input, output){
   }
   extremes <- data.frame(PID[index], perfprop, extre, rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)))
   names(extremes)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
-  PersonTable <- data.frame(PID[-index], percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
+  PersonTable <- data.frame(PID[-index], round(percent,4),round(Persons,4), round(P.se,4), round(Person.infit,4),round(Person.outfit,4),MSE.G)
   names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable <- rbind(PersonTable, extremes)
   PersonTable
