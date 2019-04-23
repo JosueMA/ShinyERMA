@@ -495,10 +495,10 @@ server<-shinyServer(function(input, output){
   extre[i] <- ifelse(perfprop[i] == 1, "maximum", ifelse(perfprop[i] == 0, "minimum","Error"))
   }
   extremes <- data.frame(PID[index], perfprop, extre, rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)), rep(NA,length(index)))
-    
+  names(extremes)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
   PersonTable <- data.frame(PID[-index], percent,Persons, P.se,Person.infit,Person.outfit,MSE.G)
-  PersonTable <- rbind(PersonTable, extremes)
   names(PersonTable)<-c("Person ID","percent correct","Estimates","Std.err","Infit","Outfit","Fit Category")
+  PersonTable <- rbind(PersonTable, extremes)
   PersonTable
   })
   
