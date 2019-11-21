@@ -690,7 +690,8 @@ text( 0,1, paste("Items",paste(tmp2, collapse='\n')), adj=c(0,1), family='mono' 
 output$Inttab<-renderTable({
   c1<-c(".50 <= MSE < 1.50","MSE < .50","1.50 <= MSE < 2.00","MSE >= 2.00")
   c2<-c("A","B","C","D")
-  c3<-c("Productive for measurement","Less productive for measurement, but not distorting of measures")
+  c3<-c("Productive for measurement","Less productive for measurement, but not distorting of measures", 
+        "Unproductive for measurement, but not distorting of measures", "Unproductive for measurement and distorting of measures")
   tab1<-data.frame(c1,c2,c3)
   names(tab1)<-c("Mean Squared Error (MSE)/Outfit","Fit Categories","Intepretation")
   tab1
