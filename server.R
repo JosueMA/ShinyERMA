@@ -328,7 +328,7 @@ server<-shinyServer(function(input, output){
   IID<-seq(1,NGitem,by=1)
   ItemTable <- data.frame(percent,G_items,I.se,Items.infit,Items.outfit,Q1,df,Q1.pvalue)
   ItemTable<-cbind(as.factor(IID),ItemTable)
-  names(ItemTable)<-c("Item No.","Percent correct", "Measure", "Std.err", "Infit MnSq", "Outfit MnSq", "Q1", "df", "Q1.pvalue")
+  names(ItemTable)<-c("Item No.","Percent correct", "Measure", "Std.err", "Infit", "Outfit", "Q1", "df", "Q1.pvalue")
   ItemTable
    })
   
